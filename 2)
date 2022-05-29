@@ -1,0 +1,42 @@
+````````naive approach````````
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        vector<char>a, b;
+        for(int i=0; i<s.length(); i++){
+            if(s[i]=='#' && !a.empty()) a.pop_back();
+            else if(s[i]!= '#') a.push_back(s[i]);
+        }
+        for(int i=0; i<t.length(); i++){
+            if(t[i]=='#' && !b.empty()) b.pop_back();
+            else if(t[i]!= '#') b.push_back(t[i]);
+        }
+        return a==b;
+    }
+};
+
+'''``````better one```````````
+
+class Solution {
+public:
+    bool backspaceCompare(string s, string t) {
+        s= type(s);
+        t= type(t);
+        return s==t;
+    }
+    string type(string s){
+        int ptr= 0;
+        for(int i=0; i<s.size(); i++){
+            if(s[i]=='#'){
+                ptr--;
+                ptr= max(0, ptr);
+            }
+            else{
+                s[ptr]= s[i];
+                ptr++;
+            }
+        }
+        return s.substr(0,ptr);
+    }
+};
