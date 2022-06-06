@@ -1,3 +1,4 @@
+// 2 pointer approach
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
@@ -10,3 +11,20 @@ public:
         return a;
     }
 };
+// hashmap approach
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        unordered_map<ListNode*, int> mp;
+        while(headA){
+            mp[headA]++;
+            headA= headA->next;
+        }
+        while(headB){
+            if(mp[headB]>0) return headB;
+            headB= headB->next;
+        }
+        return nullptr;
+    }
+};
+// using stacks also we can do and we can use a brute force approach with tc O(n^2). 
