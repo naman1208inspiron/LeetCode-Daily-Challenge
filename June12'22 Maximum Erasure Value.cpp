@@ -20,3 +20,27 @@ public:
         return maxi;
     }
 };
+//`````````````````````````````````using frequecy array ````````````````````````````````````
+class Solution {
+public:
+    int maximumUniqueSubarray(vector<int>& nums) {
+        int maxi=0;
+        int n= nums.size();
+        int currSum=0;
+        
+        bool freq[100001]= {false};
+        
+        for(int i=0, j=0; i<n; i++){
+            //first check if the num is already present or not
+            while(freq[nums[i]]){
+                freq[nums[j]]= false;
+                currSum-= nums[j];
+                j++;
+            }
+            freq[nums[i]]= true; 
+            currSum+= nums[i];
+            maxi= max(maxi, currSum);
+        }
+        return maxi;
+    }
+};
