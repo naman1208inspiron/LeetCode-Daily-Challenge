@@ -1,3 +1,4 @@
+//``````````````````````dp tabulation`````````````````````
 class Solution {
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
@@ -30,5 +31,26 @@ public:
             find(t, sum, currSum, row+1, i);
             currSum-=t[row][i];
         }
+    }
+};
+// ````````````````````````much better than my recursive code + DP`````````````````````````````
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n= triangle.size();
+        int m= triangle[n-1].size();
+        vector<vector<int>> dp(n, vector<int>(m, INT_MAX));
+        return solve(0, 0, triangle, n, dp);
+    }
+    
+    int solve(int row, int col, vector<vector<int>>&triangle, int n, vector<vector<int>>&dp){
+        if(row== n-1) return dp[row][col]= triangle[row][col];
+        
+        if(dp[row][col]!= INT_MAX) return dp[row][col];
+        
+        int bottom=       triangle[row][col] + solve(row+1, col,   triangle, n, dp);
+        int bottom_right= triangle[row][col] + solve(row+1, col+1, triangle, n, dp);
+        
+        return dp[row][col] = min(bottom, bottom_right);
     }
 };
